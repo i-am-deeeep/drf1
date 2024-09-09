@@ -14,7 +14,7 @@ class Movie_list_AV(APIView):
     
     def post(self,request):
         serializer=MovieSerializer(data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):    #(raise_exception=True) gives status code 400
             serializer.save()
             return Response(serializer.data)
         else:
@@ -29,7 +29,7 @@ class Movie_AV(APIView):
     def put(self,request,pk):
         movie=Movie.objects.get(pk=pk)
         serializer=MovieSerializer(movie,data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
         else:
